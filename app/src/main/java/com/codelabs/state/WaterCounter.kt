@@ -1,6 +1,7 @@
 package com.codelabs.state
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -15,20 +16,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
 @Composable
-fun WaterCounter(modifier: Modifier= Modifier){
+fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.padding(16.dp)) {
-        var count by remember {mutableStateOf(0)}
-        if(count> 1){
-            Text(text= "Llevas $count vasos de agua hoy.")
-        }
-        else if(count == 1){
-            Text(text= "Llevas $count vaso de agua hoy.")
+        var count by remember { mutableStateOf(0) }
+        if (count > 0) {
+            var showtask by remember { mutableStateOf(true) }
+            if (showtask) {
+                WellnessTaskItem(taskName = "¿Tas dao un paseillo por la plasa hoy primico?",
+                    onClose = { showtask = false })
             }
-        Button(onClick = { count++}, Modifier.padding(top= 8.dp), enabled = count < 10) {
-            Text("Bebete otro rey")
-
+        }
+        if (count > 1) {
+            Text(text = "Llevas $count medios de palo cortao.")
+        } else if (count == 1) {
+            Text(text = "Llevas $count medio de palo cortao.")
+        }
+        Row(modifier.padding(top = 8.dp)) {
+            Button(onClick = { count++ }, Modifier.padding(), enabled = count < 10) {
+                Text("Bebete otro rey")
+            }
+            if(count>=1){
+                Button(onClick = { count = 0 }, Modifier.padding(start = 8.dp)) {
+                    Text(text = "Ya vale gachon que te van a coger los civiles")
+                }
+            }
         }
     }
 }

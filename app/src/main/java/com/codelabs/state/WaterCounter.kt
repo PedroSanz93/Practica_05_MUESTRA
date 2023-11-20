@@ -19,13 +19,13 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.padding(16.dp)) {
-        var count by remember { mutableStateOf(0) }
+        var count by rememberSaveable { mutableStateOf(0) }
         if (count > 0) {
-            var showtask by remember { mutableStateOf(true) }
-            if (showtask) {
-                WellnessTaskItem(taskName = "¿Tas dao un paseillo por la plasa hoy primico?",
-                    onClose = { showtask = false })
-            }
+//            var showtask by remember { mutableStateOf(true) }
+//            if (showtask) {
+//                WellnessTaskItem(taskName = "¿Tas dao un paseillo por la plasa hoy primico?",
+//                    onClose = { showtask = false })
+//            }
         }
         if (count > 1) {
             Text(text = "Llevas $count medios de palo cortao.")
@@ -37,14 +37,40 @@ fun WaterCounter(modifier: Modifier = Modifier) {
                 Text("Bebete otro rey")
             }
             if(count>=1){
-                Button(onClick = { count = 0 }, Modifier.padding(start = 8.dp)) {
-                    Text(text = "Ya vale gachon que te van a coger los civiles")
-                }
+//                Button(onClick = { count = 0 }, Modifier.padding(start = 8.dp)) {
+//                    Text(text = "Ya vale gachon que te van a coger los civiles")
+//                }
             }
         }
     }
 }
 
+@Composable
+fun StatelessCounter(count: Int, onIncrement: () -> Unit, modifier: Modifier= Modifier){
+    Column(modifier= modifier.padding(16.dp)) {
+        if(count > 0){
+            if(count> 1)Text("Llevas $count vasos de vino malo.")
+            else if(count == 1) Text(text = "Hoy llevas $count vasos de vinaco") 
+        } 
+        Button(onClick = onIncrement,
+                         Modifier.padding(top= 8.dp),
+                         enabled= count< 10) {
+            Text(text = "Tomate un vinillo primo")
+        }
+    }
+}
+
+@Composable
+fun StatefulCounter(modifier: Modifier= Modifier){
+    var count by rememberSaveable { mutableStateOf(0)} // contador 1 para el vino
+    var count2 by rememberSaveable { mutableStateOf(0)} // contador 2 para los cubalibres
+    StatelessCounter(count, onIncrement= {count++}) // llama al contador 1
+    StatelessCounter(count, onIncrement= {count2++}) // llama al contador 2
+}
+@Composable
+fun WellnessScreen(modifier: Modifier= Modifier){
+    StatefulCounter(modifier)
+}
 
 
 @Preview

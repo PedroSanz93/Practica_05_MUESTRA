@@ -17,7 +17,7 @@ package com.codelabs.state
 
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-
+/*
 class WellnessViewModel : ViewModel() {
     /**
      * Don't expose the mutable list of tasks from outside the ViewModel.
@@ -39,3 +39,4 @@ class WellnessViewModel : ViewModel() {
 }
 
 private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
+*/

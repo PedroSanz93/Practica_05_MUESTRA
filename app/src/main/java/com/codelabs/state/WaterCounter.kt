@@ -36,43 +36,77 @@ fun WaterCounter(modifier: Modifier = Modifier) {
             Button(onClick = { count++ }, Modifier.padding(), enabled = count < 10) {
                 Text("Bebete otro rey")
             }
-            if(count>=1){
+           // if(count>=1){
 //                Button(onClick = { count = 0 }, Modifier.padding(start = 8.dp)) {
 //                    Text(text = "Ya vale gachon que te van a coger los civiles")
 //                }
+           // }
+        }
+    }
+}
+
+@Composable
+fun StatelessCounter(nombre: String,
+                     count: Int,
+                     onIncrement: () -> Unit,
+                     modifier: Modifier= Modifier){
+    Column(modifier= modifier.padding(16.dp)) {
+        if(count > 0){
+            if(count> 1)Text("Llevas $count vasos de $nombre.")
+            else if(count == 1) Text(text = "Hoy llevas $count vasos de $nombre")
+        }
+
+        Row{
+            Button(onClick = onIncrement,
+                             Modifier.padding(top= 8.dp),
+                             enabled= count< 10) {
+                Text(text = "Tomate un $nombre primo")
+            }
+        }
+    }
+}
+@Composable
+fun AnotherStatelessMethod(nombre: String,
+                           count: Int,
+                           onIncrement: () -> Unit,
+                           modifier: Modifier= Modifier){
+    Column(modifier= modifier.padding(16.dp)) {
+        if(count > 0){
+            if(count> 1)Text("Llevas $count vasos de $nombre.")
+            else if(count == 1) Text(text = "Hoy llevas $count vasos de $nombre")
+        }
+
+        Row{
+            Button(onClick = onIncrement,
+                Modifier.padding(top= 8.dp),
+                enabled= count< 10) {
+                Text(text = "Tomate un $nombre primo")
             }
         }
     }
 }
 
-@Composable
-fun StatelessCounter(count: Int, onIncrement: () -> Unit, modifier: Modifier= Modifier){
-    Column(modifier= modifier.padding(16.dp)) {
-        if(count > 0){
-            if(count> 1)Text("Llevas $count vasos de vino malo.")
-            else if(count == 1) Text(text = "Hoy llevas $count vasos de vinaco") 
-        } 
-        Button(onClick = onIncrement,
-                         Modifier.padding(top= 8.dp),
-                         enabled= count< 10) {
-            Text(text = "Tomate un vinillo primo")
-        }
-    }
-}
+
 
 @Composable
 fun StatefulCounter(modifier: Modifier= Modifier){
-    var count by rememberSaveable { mutableStateOf(0)} // contador 1 para el vino
-    var count2 by rememberSaveable { mutableStateOf(0)} // contador 2 para los cubalibres
-    StatelessCounter(count, onIncrement= {count++}) // llama al contador 1
-    StatelessCounter(count, onIncrement= {count2++}) // llama al contador 2
+    var vinecount by rememberSaveable { mutableStateOf(0)} // contador 1 para el vino
+    var cubalibrecount by rememberSaveable { mutableStateOf(0)} // contador 2 para los cubalibres
+    var nolotidcount by rememberSaveable { mutableStateOf(0)}
+    Column {
+            StatelessCounter("vino", vinecount, onIncrement= {vinecount++}) // llama al contador 1
+            AnotherStatelessMethod(nombre = "vino", count = vinecount, onIncrement = { vinecount*=2 })
+            StatelessCounter("cubalibre",cubalibrecount, onIncrement= {cubalibrecount++}) // llama al contador 2
+            StatelessCounter("nolotid", nolotidcount,onIncrement={nolotidcount++})
+
+    }
 }
+/*
 @Composable
 fun WellnessScreen(modifier: Modifier= Modifier){
     StatefulCounter(modifier)
 }
-
-
+*/
 @Preview
 @Composable
 fun WaterCounterPreview(){

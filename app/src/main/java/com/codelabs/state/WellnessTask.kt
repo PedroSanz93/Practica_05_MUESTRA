@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 
 data class WellnessTask(
     val id: Int,
-    val label: String
+    val label: String,
+    val checked: Boolean=false
 )
 

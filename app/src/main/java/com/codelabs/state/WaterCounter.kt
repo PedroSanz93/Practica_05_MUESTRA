@@ -21,11 +21,11 @@ fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.padding(16.dp)) {
         var count by rememberSaveable { mutableStateOf(0) }
         if (count > 0) {
-//            var showtask by remember { mutableStateOf(true) }
-//            if (showtask) {
-//                WellnessTaskItem(taskName = "¿Tas dao un paseillo por la plasa hoy primico?",
-//                    onClose = { showtask = false })
-//            }
+            var showtask by remember { mutableStateOf(true) }
+            if (showtask) {
+                WellnessTaskItem(taskName = "¿Tas dao un paseillo por la plasa hoy primico?",
+                    onClose = { showtask = false })
+            }
         }
         if (count > 1) {
             Text(text = "Llevas $count medios de palo cortao.")
